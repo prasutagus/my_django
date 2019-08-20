@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>Posts</title>
+	</head>
+	<body>
+		<h1>Good Morning</h1>
+		<p>This is how it works</p>
+
+		{% for post in posts %}
+		<p>created: {{ post.created_date }}</p>
+		<h2><a href="">{{ post.title }}</a></h2>
+		<p>{{ post.text|linebreaksbr }}</p>
+		{% endfor %}
+	</body>
+</html>
