@@ -1,0 +1,5 @@
+MacOS is an excellent operating system. It is maintained by Apple and cannot be modified by the user, although you can add applications at your own risk. In Linux, the kernel is maintained by Linus Torvald and the rest is maintained by enthusiasts. The user can do as little or as much as he likes with the system.
+
+The nice thing about Linux is that it can be installed on any computer that will run Windows. Apple has made it difficult to install Linux on Apple computers, but that just saves you money!
+
+Linux is a good alternative to both Windows and MacOS.
