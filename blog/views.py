@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from .models import Post
@@ -6,12 +7,18 @@ from .forms import PostForm
 def post_list(request):
     qs = Post.objects.all()
     # queryset 'qs' bringing all posts
+    paginator = Paginator(qs, 4)
+
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
+
     template_name = 'post_list.html'
-    context = {'posts': qs}
-    # context is python dictionary(key:value) - key is 'posts'; value is 'qs'
+    # context = {'posts': qs} #basic context without pagination
+    context = {'posts':posts}
+    # context is python dictionary(key:value) - key is 'posts'; value is 'qs' or 'posts'
     return render(request, template_name, context)
 
-# CRUD
+# CRUD functions
 def post_create(request): # create
     form = PostForm(request.POST)
     if form.is_valid():
