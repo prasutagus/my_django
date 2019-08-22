@@ -1,8 +1,15 @@
+from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from .models import Post
 from .forms import PostForm
+
+
+def logout_view(request):
+    logout(request)
+    redirect('post_list')
 
 def post_list(request):
     qs = Post.objects.all()
@@ -19,6 +26,8 @@ def post_list(request):
     return render(request, template_name, context)
 
 # CRUD functions
+
+@login_required
 def post_create(request): # create
     form = PostForm(request.POST)
     if form.is_valid():
@@ -37,6 +46,7 @@ def post_detail(request, pk): # retrieve
     template_name = 'post_detail.html'
     return render(request, template_name, {'post':post})
 
+@login_required
 def post_edit(request, pk): # update
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
@@ -51,6 +61,7 @@ def post_edit(request, pk): # update
     template_name = 'post_edit.html'
     return render(request, template_name, {'form':form})
 
+@login_required
 def post_delete(request, pk): # delete
     post = get_object_or_404(Post, pk=pk)
     post.delete()

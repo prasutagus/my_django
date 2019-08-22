@@ -8,12 +8,23 @@
       <li class="nav-item active">
 				<a class="nav-link" href="{% url 'post_list' %}">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
+			{% if user.is_authenticated %}
+			<li class="nav-item">
 				<a class="nav-link" href="{% url 'post_create' %}">Add Post</a>
       </li>
+			{% endif %}
+				
+			{% if not user.is_authenticated %}
       <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
+				<a class="nav-link" href="{% url 'login' %}">Login</a>
       </li>
+			{% else %}
+			<li class="nav-link">(Hi, {{ user }})</li>
+      <li class="nav-item">
+				<a class="nav-link" href="{% url 'logout' %}">Logout</a>
+      </li>
+			{% endif %}
+
       <li class="nav-item">
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
       </li>
