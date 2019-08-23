@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # 3rd Party app
     'crispy_forms',
+    'django_markdown2',
 
     # my apps
     'blog',
@@ -109,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-uk'
+LANGUAGE_CODE = 'en-GB'
 
 TIME_ZONE = 'UTC'
 

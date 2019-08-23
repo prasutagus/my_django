@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load md2 %}
 
 {% block header %}
 	
@@ -8,7 +9,7 @@
 		{% for post in posts %}
 		<h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
 		<p>Added: {{ post.created_date|date:'D, jS F Y' }}</p>
-		<p>{{ post.text|linebreaksbr }}</p>
+		<p>{{ post.text|markdown }}</p>
 		{% endfor %}
 
 		<!-- For pagination from Django docs (4 articles per page)-->
