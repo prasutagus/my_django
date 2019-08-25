@@ -7,9 +7,13 @@
 
 {% block content %}
 		{% for post in posts %}
-		<h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+		<h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title|title }}</a></h2>
 		<p>Added: {{ post.created_date|date:'D, jS F Y' }}</p>
-		<p>{{ post.text|markdown }}</p>
+		{% if post.text|wordcount > 50 %}
+			<p>{{ post.text|markdown|truncatewords:50|safe }}<span><a href="{% url 'post_detail' pk=post.pk %}">More</a></span></p>
+		{% else %}
+			<p>{{ post.text|markdown}}</p>
+		{% endif %}
 		{% endfor %}
 
 		<!-- For pagination from Django docs (4 articles per page)-->
