@@ -8,7 +8,7 @@
 {% block content %}
 		{% for post in posts %}
 		<h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title|title }}</a></h2>
-		<p>Published: {{ post.published_date|date:'l, jS F Y' }}</p>
+		<p>Created: {{ post.created_date|date:'l, jS F Y' }}</p>
 		{% if post.text|wordcount > 50 %}
 			<p>{{ post.text|markdown|truncatewords:50|safe }}<span><a href="{% url 'post_detail' pk=post.pk %}">More</a></span></p>
 		{% else %}

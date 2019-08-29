@@ -4,10 +4,16 @@
 
 {% block content %}
 <h2>{{ post.title|title }}</h2>
-<p>{{ post.published_date|date:'l, jS F Y'}}</p>
+{% if post.published_date %}
+<p>Published on: {{ post.published_date|date:'l, jS F Y' }}</p>
+{% else %}
+<p>Created on: {{ post.created_date|date:'l, jS F Y' }}</p>
+{% endif %}
 <p>{{ post.text|markdown|safe }}</p>
 <a class="btn btn-warning" href="{% url 'post_edit' pk=post.pk %}">Edit</a>
 <a class="btn btn-danger" href="{% url 'post_delete' pk=post.pk %}">Delete</a>
 <a class="btn btn-primary" href="{% url 'post_list'%}">All Posts</a>
+{% if not post.published_date %}
 <a class="btn btn-primary" href="{% url 'post_publish' pk=post.pk %}">Publish</a>
+{% endif %}
 {% endblock content %}
