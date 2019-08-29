@@ -4,9 +4,10 @@
 
 {% block content %}
 <h2>{{ post.title|title }}</h2>
-<p>{{ post.created_date|date:'D, jS F Y'}}</p>
+<p>{{ post.published_date|date:'l, jS F Y'}}</p>
 <p>{{ post.text|markdown|safe }}</p>
 <a class="btn btn-warning" href="{% url 'post_edit' pk=post.pk %}">Edit</a>
 <a class="btn btn-danger" href="{% url 'post_delete' pk=post.pk %}">Delete</a>
 <a class="btn btn-primary" href="{% url 'post_list'%}">All Posts</a>
+<a class="btn btn-primary" href="{% url 'post_publish' pk=post.pk %}">Publish</a>
 {% endblock content %}

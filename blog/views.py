@@ -12,7 +12,7 @@ def logout_view(request):
     redirect('post_list')
 
 def post_list(request):
-    qs = Post.objects.all()
+    qs = Post.objects.filter(published_date__isnull=False)
     # queryset 'qs' bringing all posts
     paginator = Paginator(qs, 4)
 
@@ -25,6 +25,19 @@ def post_list(request):
     # context is python dictionary(key:value) - key is 'posts'; value is 'qs' or 'posts'
     return render(request, template_name, context)
 
+def post_drafts(request):
+    qs = Post.objects.filter(published_date__isnull=True)
+    # queryset 'qs' bringing all posts
+    paginator = Paginator(qs, 4)
+
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
+
+    template_name = 'post_drafts.html'
+    # context = {'posts': qs} #basic context without pagination
+    context = {'posts':posts}
+    # context is python dictionary(key:value) - key is 'posts'; value is 'qs' or 'posts'
+    return render(request, template_name, context)
 # CRUD functions
 
 @login_required
@@ -66,3 +79,9 @@ def post_delete(request, pk): # delete
     post = get_object_or_404(Post, pk=pk)
     post.delete()
     return redirect('post_list')
+
+@login_required
+def post_publish(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.publish()
+    return redirect('post_detail', pk=pk)
